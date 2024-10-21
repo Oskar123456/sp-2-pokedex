@@ -1,0 +1,15 @@
+{
+    
+    "name":"TEST",
+    
+    "address":"Apt. 486 31908 Beer Manor, South Misha, MN 67044-1117",
+    
+    "rooms":[
+        
+        {"number":328,"price":221.72222407247364,"hotelid":2853},
+        {"number":232,"price":132.4974261368166,"hotelid":2853},
+        {"number":218,"price":680.0698942399426,"hotelid":2853}
+        
+    ]
+    
+}
