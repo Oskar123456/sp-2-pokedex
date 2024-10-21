@@ -7,8 +7,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import dk.obhnothing.persistence.entities.hotel;
-import dk.obhnothing.persistence.entities.room;
+import dk.obhnothing.security.entities.Role;
+import dk.obhnothing.security.entities.User;
 import jakarta.persistence.EntityManagerFactory;
 
 public class HibernateConfig {
@@ -20,8 +20,8 @@ public class HibernateConfig {
     }
 
     private static void getAnnotationConfiguration(Configuration configuration) {
-        configuration.addAnnotatedClass(hotel.class);
-        configuration.addAnnotatedClass(room.class);
+        configuration.addAnnotatedClass(User.class);
+        configuration.addAnnotatedClass(Role.class);
     }
 
     public static void Init(Mode mode) {

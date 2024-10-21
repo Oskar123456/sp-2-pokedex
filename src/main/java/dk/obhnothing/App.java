@@ -49,7 +49,12 @@ import jakarta.persistence.EntityManagerFactory;
 public class App
 {
 
-    public static EntityManagerFactory EMF;
+    private static Routes routes = new Routes();
+    private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
+    private static SecurityController securityController = SecurityController.getInstance();
+    private static AccessController accessController = new AccessController();
+    private static Logger logger = LoggerFactory.getLogger(ApplicationConfig.class);
+    private static EntityManagerFactory EMF;
 
     public static void main(String... args)
     {
@@ -80,7 +85,7 @@ public class App
                 config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/css", Location.EXTERNAL);
                 config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/images", Location.EXTERNAL);
                 config.bundledPlugins.enableRouteOverview("/routes");
-                config.router.contextPath = "/api"; // base path for all endpoints
+                //config.router.contextPath = "/api"; // base path for all endpoints
                 config.router.apiBuilder(SecurityRoutes.getSecuredRoutes());
                 config.router.apiBuilder(SecurityRoutes.getSecurityRoutes());
                 config.router.apiBuilder(routes.getRoutes());
@@ -93,23 +98,6 @@ public class App
             //System.setErr(stderr);
 
             /* TEST */
-
-            for (int j = 0; j < 1; j++) {
-                hotel h = new hotel();
-
-                for (int i = 0; i < rng.nextInt(1, 5); i++) {
-                    room r = new room();
-                    h.rooms.add(r);
-                }
-
-                hoteldao.create(h);
-            }
-
-            List<hotel> allHotels = hoteldao.search("");
-            List<room> allRooms = roomdao.getAll();
-
-            PrettyPrinter.PrintObjectTable(allHotels);
-            PrettyPrinter.PrintObjectTable(allRooms);
 
         }
 

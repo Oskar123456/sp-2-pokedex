@@ -48,14 +48,6 @@ public class Master
         j.get("/", c -> index(c));
         j.get("/index", c -> index(c));
         j.get("/listall", c -> listall(c));
-        j.get("/api/room", c -> roomcontroller.getRoom(c));
-        j.post("/api/room", c -> roomcontroller.getRoom(c));
-        j.delete("/api/room", c -> roomcontroller.deleteRoom(c));
-        j.get("/api/hotel", c -> hotelcontroller.getHotel(c));
-        j.post("/api/hotel", c -> hotelcontroller.getHotel(c));
-        j.delete("/api/hotel", c -> hotelcontroller.deleteHotel(c));
-        j.put("/api/hotel", c -> hotelcontroller.createHotel(c));
-        j.get("/api/hotel/search", c -> hotelcontroller.searchHotel(c));
         j.error(404, c -> notfound(c));
         j.exception(IllegalStateException.class, (e, c) -> exc(e, c));
     }
@@ -97,19 +89,17 @@ public class Master
         c.result("bad request");
     }
 
-    private static void notfound(@NotNull Context c) {
+    private static void notfound(Context c) {
         byte[] responseContent = null;
         String contentFormat = "";
         int statusCode = 404;
-        try {
-            //System.err.printf("(thread %d) couldnt find %s%n", Thread.currentThread().getId(), c.path());
+        try
+        {
             responseContent = Files.readAllBytes(Paths.get(resourceFolder + "/html" + "/notfound.html"));
             contentFormat = "text/html; charset=utf-8";
         }
 
-        catch (Exception e) {
-
-        }
+        catch (Exception e) { }
 
         c.contentType(contentFormat);
         c.status(statusCode);
