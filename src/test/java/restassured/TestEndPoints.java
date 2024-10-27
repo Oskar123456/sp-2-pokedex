@@ -14,16 +14,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import dk.obhnothing.persistence.HibernateConfig;
-import dk.obhnothing.persistence.dao.hoteldao;
-import dk.obhnothing.persistence.dao.roomdao;
-import dk.obhnothing.persistence.dto.hoteldto;
-import dk.obhnothing.persistence.entities.hotel;
+import dk.obhnothing.persistence.dao.PokeDAO;
+import dk.obhnothing.persistence.dto.PokemonDTO;
+import dk.obhnothing.persistence.ent.Pokemon;
 import dk.obhnothing.persistence.service.Mapper;
-import dk.obhnothing.utilities.PrettyPrinter;
-import dk.obhnothing.App;
-import dk.obhnothing.control.Master;
+import dk.obhnothing.routes.PokemonRoutes;
+import dk.obhnothing.utilities.Utils;
 import io.javalin.Javalin;
-import io.javalin.http.staticfiles.Location;
 import io.restassured.RestAssured;
 import io.restassured.RestAssured.*;
 import io.restassured.internal.ResponseSpecificationImpl.HamcrestAssertionClosure;
@@ -50,25 +47,14 @@ public class TestEndPoints
         System.setOut(new PrintStream(PrintStream.nullOutputStream()));
         System.setErr(new PrintStream(PrintStream.nullOutputStream()));
 
-        PrettyPrinter.withColor("aoe", PrettyPrinter.ANSIColorCode.ANSI_BLACK);
         HibernateConfig.Init(HibernateConfig.Mode.TEST);
         EMF = HibernateConfig.getEntityManagerFactory();
-        hoteldao.init(EMF);
-        roomdao.init(EMF);
+        PokeDAO.Init(EMF);
 
-        jav = Javalin.create(config -> {
-            config.showJavalinBanner = false;
-            config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/html", Location.EXTERNAL);
-            config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/js", Location.EXTERNAL);
-            config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/css", Location.EXTERNAL);
-            config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/images", Location.EXTERNAL);
-        });
-
-        Master.Init(jav);
+        jav = PokemonRoutes.setup();
         new Thread(() -> jav.start(8080)).run();
 
-        om = new ObjectMapper();
-        om.findAndRegisterModules();
+        om = Utils.getObjectMapper();
         om.enable(SerializationFeature.INDENT_OUTPUT);
 
         System.setOut(stdout);
@@ -92,40 +78,52 @@ public class TestEndPoints
     void testInit()
     {
 
-        hoteldto[] hotels = RestAssured.get("api/hotel").then().extract().body().jsonPath().getObject("", hoteldto[].class);
-        assertThat(hotels.length, equalTo(0));
+        Pokemon[] pokemons = RestAssured.get("api/pokemon/all").then().extract().body().jsonPath().getObject("", Pokemon[].class);
+        assertThat(pokemons.length, equalTo(0));
 
     }
 
-    @Test @DisplayName("create")
+    @Test @DisplayName("CRUD: create, update, delete")
     void testCreate() throws Exception
     {
 
-        String json = """
-        {
-            "name":"TEST",
+        String json = new String(ClassLoader.getSystemResourceAsStream("ditto.json").readAllBytes());
 
-                "address":"Apt. 486 31908 Beer Manor, South Misha, MN 67044-1117",
+        PokemonDTO pokeDTO = om.readValue(json, PokemonDTO.class);
+        /* CREATE */
+        Pokemon pokemon_ditto = RestAssured.given()
+            .contentType("application/json").body(json)
+            .when().post("/api/pokemon")
+            .then().extract().body().as(Pokemon.class);
 
-                "rooms":[
-                {"number":328,"price":221.72222407247364},
-                {"number":232,"price":132.4974261368166},
-                {"number":218,"price":680.0698942399426} ]
-        }
-        """;
+        assertThat(pokemon_ditto.id, equalTo(13337));
+        assertThat(pokemon_ditto.hp, equalTo(48));
 
-        hoteldto DTOFromJson = om.readValue(json, hoteldto.class);
-        hotel EntFromJson = Mapper.Hotel_ToEnt(DTOFromJson);
-        hoteldto[] hotels = RestAssured.get("api/hotel").then().extract().body().jsonPath().getObject("", hoteldto[].class);
+        Pokemon pokemon_ditto_from_db = PokeDAO.findById(13337);
 
-        assertThat(hotels.length, equalTo(0));
+        assertThat(pokemon_ditto_from_db, equalTo(pokemon_ditto));
 
-        RestAssured.given().header("Content-Type", "application/json").body(json).put("/api/hotel");
-        hotels = RestAssured.get("api/hotel").then().extract().body().jsonPath().getObject("", hoteldto[].class);
+        pokeDTO.name = "not_ditto";
 
-        assertThat(hotels.length, equalTo(1));
-        assertThat(hotels[0].name, equalTo(DTOFromJson.name));
+        /* UPDATE */
+        Pokemon pokemon_ditto_posted = RestAssured.given()
+            .contentType("application/json").body(om.writeValueAsString(pokeDTO))
+            .when().post("/api/pokemon")
+            .then().extract().body().as(Pokemon.class);
 
+        pokemon_ditto_from_db = PokeDAO.findById(13337);
+
+        assertThat(pokemon_ditto_from_db.name, equalTo("not_ditto"));
+
+        /* DELETE */
+        Pokemon pokemon_ditto_deleted = RestAssured.given()
+            .contentType("application/json").queryParam("id", 13337)
+            .when().delete("/api/pokemon")
+            .then().extract().body().as(Pokemon.class);
+
+        Pokemon pokemon_ditto_from_db_after_delete = PokeDAO.findById(13337);
+
+        assertThat(pokemon_ditto_from_db_after_delete, equalTo(null));
 
     }
 

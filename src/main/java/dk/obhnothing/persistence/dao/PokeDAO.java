@@ -28,6 +28,13 @@ public class PokeDAO
         {
             EM.getTransaction().begin();
 
+            if (EM.find(Pokemon.class, p.id) != null) {
+                EM.getTransaction().commit();
+                update(p);
+                EM.getTransaction().begin();
+                return EM.find(Pokemon.class, p.id);
+            }
+
             EM.persist(p.sprite);
             for (Form f : p.forms)
                 if (EM.find(Form.class, f.name) == null)

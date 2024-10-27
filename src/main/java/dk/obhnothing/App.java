@@ -62,11 +62,11 @@ public class App
 
             System.out.println("listening..." + System.lineSeparator());
 
-            Pokemon p = Fetch.pokemonById(1);
-            p = Fetch.pokemonById(2);
-            p = Fetch.pokemonById(3);
+            for (int i = 0; i < 100; ++i) {
+                Pokemon p = Fetch.pokemonById(i);
+            }
+
             List<Pokemon> p_all = PokeDAO.getAll();
-            System.out.println(p.name);
             System.out.println(p_all.stream().map(pk -> pk.name).collect(Collectors.joining(", ")));
 
             /* TEST */

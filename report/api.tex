@@ -75,13 +75,16 @@ Oskar Bahner Hansen (\texttt{cph-oh82@cphbusiness.dk})
     \multicolumn{1}{c}{\texttt{method}} & \multicolumn{1}{c}{url} & \multicolumn{1}{c}{params} & \multicolumn{1}{c}{request body} & \multicolumn{1}{c}{response} & \multicolumn{1}{c}{error} \\
 \hline
 \rowcolor{Gray}
-        \texttt{GET}    & \texttt{/api/pokemon}& \texttt{id}  &  & \texttt{pokejson[]} & \texttt{errorjson} \\
+        \texttt{GET}    & \texttt{/api/pokemon}& \texttt{id}  &  & \texttt{pokejson} & \texttt{errorjson} \\
 \hline
-        \texttt{POST}   & \texttt{/api/pokemon} & & \texttt{pokejson[]}~(-- id) & \texttt{pokejson[]} & \texttt{errorjson} \\
+        \texttt{GET}    & \texttt{/api/pokemon/all}& &  & \texttt{pokejson[]} & \texttt{errorjson} \\
 \hline
 \rowcolor{Gray}
-        \texttt{UPDATE} & \texttt{/api/pokemon} & & \texttt{pokejson} & \texttt{pokejson} &  \texttt{errorjson} \\
+        \texttt{POST}   & \texttt{/api/pokemon} & & \texttt{pokejson}~(-- id) & \texttt{pokejson} & \texttt{errorjson} \\
 \hline
+        \texttt{PUT} & \texttt{/api/pokemon} & & \texttt{pokejson} & \texttt{pokejson} &  \texttt{errorjson} \\
+\hline
+\rowcolor{Gray}
         \texttt{DELETE} & \texttt{/api/pokemon} & \texttt{id} & & \texttt{pokejson} & \texttt{errorjson} \\
 \hline
 \end{tabular}
