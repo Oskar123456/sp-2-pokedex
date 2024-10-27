@@ -13,7 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dk.obhnothing.persistence.dao.PokeDAO;
+import dk.obhnothing.persistence.dto.PokemonDTO;
 import dk.obhnothing.persistence.ent.Pokemon;
+import dk.obhnothing.persistence.service.Mapper;
 import dk.obhnothing.security.controllers.AccessController;
 import dk.obhnothing.security.controllers.SecurityController;
 import dk.obhnothing.security.exceptions.ApiException;
@@ -50,33 +52,17 @@ public class PokemonRoutes {
         jav.get("pokemon", PokemonRoutes::pokedexLookUp_Id);
         jav.put("pokemon", PokemonRoutes::pokedex_Add);
         jav.post("pokemon", PokemonRoutes::pokedex_Add);
-        jav.update("pokemon", PokemonRoutes::pokedex_Update);
         jav.delete("pokemon", PokemonRoutes::pokedex_Delete);
 
         return jav;
-    }
-
-    public static void pokedex_Update(Context ctx)
-    {
-        try
-        {
-            Pokemon pokemon = ctx.bodyAsClass(Pokemon.class);
-            pokemon = PokeDAO.update(pokemon);
-            ctx.json(pokemon);
-            ctx.status(200);
-        }
-
-        catch (Exception e)
-        {
-            throw new ApiException(404, "pokemon not updated");
-        }
     }
 
     public static void pokedex_Add(Context ctx)
     {
         try
         {
-            Pokemon pokemon = ctx.bodyAsClass(Pokemon.class);
+            PokemonDTO pdto = Utils.getObjectMapper().readValue(ctx.body(), PokemonDTO.class);
+            Pokemon pokemon = Mapper.PokemonDTO_Pokemon(pdto);
             pokemon = PokeDAO.create(pokemon);
             ctx.json(pokemon);
             ctx.status(200);
