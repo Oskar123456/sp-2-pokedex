@@ -1,6 +1,5 @@
-# Java Web Project Template
+# Java Web Project SP-2 "pokedex"
 
 ### Details
 
-### Notes
 
