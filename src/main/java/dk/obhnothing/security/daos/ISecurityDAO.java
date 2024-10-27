@@ -1,8 +1,8 @@
 package dk.obhnothing.security.daos;
 
-import dat.security.entities.User;
-import dat.security.exceptions.ValidationException;
 import dk.bugelhartmann.UserDTO;
+import dk.obhnothing.security.entities.User;
+import dk.obhnothing.security.exceptions.ValidationException;
 
 public interface ISecurityDAO {
     UserDTO getVerifiedUser(String username, String password) throws ValidationException;

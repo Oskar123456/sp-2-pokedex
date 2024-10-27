@@ -1,0 +1,148 @@
+\documentclass[leqno,12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{floatrow}
+\usepackage{minted}    
+\floatsetup[listing]{style=Plaintop}    
+\usepackage[most]{tcolorbox}
+\usepackage{float}
+\restylefloat{table}
+
+\newcommand{\Term}{Efterår 2024}
+\newcommand{\Course}{Datamatiker}
+
+\newcommand{\Assignment}{sp-2 api-dokumentation}
+\newcommand{\DueDate}{tirsdag d. 22 oktober}
+
+\usepackage[body={6in,9in}]{geometry}
+
+\newcommand{\brak}[1]{\left\langle #1\right\rangle}
+\newcommand{\abs}[1]{\left\lvert #1\right\rvert}
+
+\DeclareMathOperator{\lcm}{lcm}
+
+\newcommand{\Neg}{\phantom{-}}
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\subset}{\subseteq}
+
+\newcommand{\ds}{\displaystyle}
+
+%% Letter symbols
+\newcommand{\Number}[1]{\mathbf{#1}}
+\newcommand{\C}{\Number{C}}
+\newcommand{\N}{\Number{N}}
+\newcommand{\Q}{\Number{Q}}
+\newcommand{\R}{\Number{R}}
+\newcommand{\Z}{\Number{Z}}
+
+\newcommand{\eps}{\varepsilon}
+
+\newcommand{\Input}[1]{\includegraphics{#1.pdf}}
+
+\newcommand{\Prob}[1]{\noindent\textbf{Question #1:}\quad}
+\newcommand{\soln}[1][Answer]{\noindent\textbf{#1}\quad}
+
+\newcommand{\Cmd}[1]{\textbackslash\texttt{#1}}
+
+\pagestyle{empty}
+
+\usepackage{xcolor,colortbl}
+
+\newcommand{\mc}[2]{\multicolumn{#1}{c}{#2}}
+\definecolor{Gray}{gray}{0.85}
+\definecolor{LightGray}{rgb}{0.88,0.88,0.88}
+
+\begin{document} 
+
+Oskar Bahner Hansen (\texttt{cph-oh82@cphbusiness.dk})
+\begin{center}
+
+\textbf{Copenhagen Business School \Term} \\
+\textbf{\Course} 3. semester \\
+\textbf{\Assignment} tirsdag d. 22 oktober
+\end{center}
+
+\subsection*{\underline{Beskrivelse}}
+\textbf{Titel}: \normalsize \textbf{pokedex}. \textbf{Github}: \normalsize \texttt{https://github.com/Oskar123456/sp-2-pokedex} \newline \newline
+    \textit{En API til at hente information om pokemons, som f.eks. kunne bruges til et spil. Med en backend der henter disse informationer fra}
+    \texttt{https://pokeapi.co}.
+\subsection*{\underline{API}}
+
+%%\begin{table}[h]
+%%\hspace*{1in}
+\begin{tabular}{l | l | l | l | l | l}
+\rowcolor{white}
+    \multicolumn{1}{c}{\texttt{method}} & \multicolumn{1}{c}{url} & \multicolumn{1}{c}{params} & \multicolumn{1}{c}{request body} & \multicolumn{1}{c}{response} & \multicolumn{1}{c}{error} \\
+\hline
+\rowcolor{Gray}
+        \texttt{GET}    & \texttt{/api/pokemon}& \texttt{id}  &  & \texttt{pokejson[]} & \texttt{errorjson} \\
+\hline
+        \texttt{POST}   & \texttt{/api/pokemon} & & \texttt{pokejson[]}~(-- id) & \texttt{pokejson[]} & \texttt{errorjson} \\
+\hline
+\rowcolor{Gray}
+        \texttt{UPDATE} & \texttt{/api/pokemon} & & \texttt{pokejson} & \texttt{pokejson} &  \texttt{errorjson} \\
+\hline
+        \texttt{DELETE} & \texttt{/api/pokemon} & \texttt{id} & & \texttt{pokejson} & \texttt{errorjson} \\
+\hline
+\end{tabular}
+%%\end{table}
+
+\subsubsection*{Formater}
+ -- \texttt{pokejson}-format:
+\begin{listing}[ht!]
+\begin{minted}[fontsize=\footnotesize]{js}
+    {  
+      "id" : Number,
+      "name" : String,
+      "basexp" : Number,
+      "height" : Number,
+      "isdefault" : Boolean,
+      "order" : Number,
+      "weight" : Number,
+      "abilities" : Object[], 
+      "forms" : Object[],
+      "locations" : Object[],
+      "moves" : Object[],
+      "sprites" : String[],
+      "species" : Object,
+      "stats" : Object[],
+      "types" : String[]
+    }
+\end{minted}
+\end{listing}
+
+ -- \texttt{errorjson}-format:
+\begin{listing}[ht!]
+\begin{minted}[fontsize=\footnotesize]{js}
+    {  "status" : Number, "message" : String }
+\end{minted}
+\end{listing}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

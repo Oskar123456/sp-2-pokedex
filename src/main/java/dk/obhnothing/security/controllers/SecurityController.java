@@ -3,17 +3,17 @@ package dk.obhnothing.security.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.nimbusds.jose.JOSEException;
-import dat.utils.Utils;
-import dat.config.HibernateConfig;
-import dat.security.daos.ISecurityDAO;
-import dat.security.daos.SecurityDAO;
-import dat.security.entities.User;
-import dat.security.exceptions.ApiException;
-import dat.security.exceptions.NotAuthorizedException;
-import dat.security.exceptions.ValidationException;
 import dk.bugelhartmann.ITokenSecurity;
 import dk.bugelhartmann.TokenSecurity;
 import dk.bugelhartmann.UserDTO;
+import dk.obhnothing.persistence.HibernateConfig;
+import dk.obhnothing.security.daos.ISecurityDAO;
+import dk.obhnothing.security.daos.SecurityDAO;
+import dk.obhnothing.security.entities.User;
+import dk.obhnothing.security.exceptions.ApiException;
+import dk.obhnothing.security.exceptions.ValidationException;
+import dk.obhnothing.security.exceptions.NotAuthorizedException;
+import dk.obhnothing.utilities.Utils;
 import io.javalin.http.Handler;
 import io.javalin.http.HttpStatus;
 import io.javalin.http.UnauthorizedResponse;
@@ -45,7 +45,7 @@ public class SecurityController implements ISecurityController {
         if (instance == null) {
             instance = new SecurityController();
         }
-        securityDAO = new SecurityDAO(HibernateConfig.getEntityManagerFactory("poems"));
+        securityDAO = new SecurityDAO(HibernateConfig.getEntityManagerFactory());
         return instance;
     }
 

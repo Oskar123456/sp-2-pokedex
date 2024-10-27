@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{p}{\PYGZob{}}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}id\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Number}\PYG{p}{,}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}name\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{String}\PYG{p}{,}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}basexp\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Number}\PYG{p}{,}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}height\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Number}\PYG{p}{,}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}isdefault\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Boolean}\PYG{p}{,}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}order\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Number}\PYG{p}{,}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}weight\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Number}\PYG{p}{,}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}abilities\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Object}\PYG{p}{[],}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}forms\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Object}\PYG{p}{[],}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}locations\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Object}\PYG{p}{[],}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}moves\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Object}\PYG{p}{[],}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}sprites\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{String}\PYG{p}{[],}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}species\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Object}\PYG{p}{,}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}stats\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{Object}\PYG{p}{[],}
+\PYG{+w}{      }\PYG{l+s+s2}{\PYGZdq{}types\PYGZdq{}}\PYG{+w}{ }\PYG{o}{:}\PYG{+w}{ }\PYG{n+nb}{String}\PYG{p}{[]}
+\PYG{+w}{    }\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

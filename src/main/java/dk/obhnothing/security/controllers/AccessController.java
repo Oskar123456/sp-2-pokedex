@@ -1,7 +1,7 @@
 package dk.obhnothing.security.controllers;
 
-import dat.security.enums.Role;
 import dk.bugelhartmann.UserDTO;
+import dk.obhnothing.security.enums.Role;
 import io.javalin.http.Context;
 import io.javalin.http.UnauthorizedResponse;
 import io.javalin.security.RouteRole;

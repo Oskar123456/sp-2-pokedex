@@ -2,9 +2,9 @@ package dk.obhnothing.security.routes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import dat.utils.Utils;
-import dat.security.controllers.SecurityController;
-import dat.security.enums.Role;
+import dk.obhnothing.security.controllers.SecurityController;
+import dk.obhnothing.security.enums.Role;
+import dk.obhnothing.utilities.Utils;
 import io.javalin.apibuilder.EndpointGroup;
 
 import static io.javalin.apibuilder.ApiBuilder.*;

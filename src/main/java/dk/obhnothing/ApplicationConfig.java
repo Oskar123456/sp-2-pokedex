@@ -1,12 +1,13 @@
-package dat.config;
+package dk.obhnothing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dat.routes.Routes;
-import dat.security.controllers.AccessController;
-import dat.security.controllers.SecurityController;
-import dat.security.exceptions.ApiException;
-import dat.security.routes.SecurityRoutes;
-import dat.utils.Utils;
+
+import dk.obhnothing.routes.PokemonRoutes;
+import dk.obhnothing.security.controllers.AccessController;
+import dk.obhnothing.security.controllers.SecurityController;
+import dk.obhnothing.security.exceptions.ApiException;
+import dk.obhnothing.security.routes.SecurityRoutes;
+import dk.obhnothing.utilities.*;
 import io.javalin.Javalin;
 import io.javalin.config.JavalinConfig;
 import io.javalin.http.Context;
@@ -15,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class ApplicationConfig {
 
-    private static Routes routes = new Routes();
+    private static PokemonRoutes routes = new PokemonRoutes();
     private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
     private static SecurityController securityController = SecurityController.getInstance();
     private static AccessController accessController = new AccessController();
@@ -24,7 +25,7 @@ public class ApplicationConfig {
     public static void configuration(JavalinConfig config) {
         config.showJavalinBanner = false;
         config.bundledPlugins.enableRouteOverview("/routes");
-        config.router.contextPath = "/api"; // base path for all endpoints
+        //config.router.contextPath = "/api"; // base path for all endpoints
         config.router.apiBuilder(routes.getRoutes());
         config.router.apiBuilder(SecurityRoutes.getSecuredRoutes());
         config.router.apiBuilder(SecurityRoutes.getSecurityRoutes());

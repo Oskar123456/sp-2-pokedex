@@ -1,39 +1,28 @@
 package dk.obhnothing;
 
-import java.io.InputStream;
 import java.io.PrintStream;
-import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandler;
 import java.net.http.HttpResponse.BodyHandlers;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Random;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Attribute;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.sun.net.httpserver.HttpServer;
 
-import dk.obhnothing.control.*;
+import dk.obhnothing.control.Master;
 import dk.obhnothing.persistence.HibernateConfig;
-import dk.obhnothing.persistence.dao.hoteldao;
-import dk.obhnothing.persistence.dao.roomdao;
-import dk.obhnothing.persistence.entities.hotel;
-import dk.obhnothing.persistence.entities.room;
-import dk.obhnothing.utilities.JsonUtils;
-import dk.obhnothing.utilities.PrettyPrinter;
-import dk.obhnothing.utilities.JsonUtils.JsonObjectStr;
+import dk.obhnothing.persistence.dto.PokemonDTO;
+import dk.obhnothing.routes.PokemonRoutes;
+import dk.obhnothing.security.controllers.AccessController;
+import dk.obhnothing.security.controllers.SecurityController;
+import dk.obhnothing.security.routes.SecurityRoutes;
+import dk.obhnothing.utilities.Utils;
 import io.javalin.Javalin;
-import io.javalin.http.Context;
 import io.javalin.http.staticfiles.Location;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -49,53 +38,48 @@ import jakarta.persistence.EntityManagerFactory;
 public class App
 {
 
-    private static Routes routes = new Routes();
     private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
-    private static SecurityController securityController = SecurityController.getInstance();
-    private static AccessController accessController = new AccessController();
     private static Logger logger = LoggerFactory.getLogger(ApplicationConfig.class);
     private static EntityManagerFactory EMF;
 
     public static void main(String... args)
     {
         /* INIT */
-        //PrintStream stdout = System.out;
-        //PrintStream stderr = System.err;
-        //System.setOut(new PrintStream(PrintStream.nullOutputStream()));
-        //System.setErr(new PrintStream(PrintStream.nullOutputStream()));
-
-        Random rng = new Random();
+        jsonMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        PrintStream stdout = System.out;
+        PrintStream stderr = System.err;
+        System.setOut(new PrintStream(PrintStream.nullOutputStream()));
+        System.setErr(new PrintStream(PrintStream.nullOutputStream()));
 
         HibernateConfig.Init(HibernateConfig.Mode.DEV);
         EMF = HibernateConfig.getEntityManagerFactory();
-        hoteldao.init(EMF);
-        roomdao.init(EMF);
-        ObjectMapper om = new ObjectMapper();
-        om.findAndRegisterModules();
-        om.enable(SerializationFeature.INDENT_OUTPUT);
+        Random rng = new Random();
 
         try
 
         {
 
-            Javalin jav = Javalin.create(config -> {
-                config.showJavalinBanner = false;
-                config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/html", Location.EXTERNAL);
-                config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/js", Location.EXTERNAL);
-                config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/css", Location.EXTERNAL);
-                config.staticFiles.add(System.getenv("PWD") + "/src/main/resources/images", Location.EXTERNAL);
-                config.bundledPlugins.enableRouteOverview("/routes");
-                //config.router.contextPath = "/api"; // base path for all endpoints
-                config.router.apiBuilder(SecurityRoutes.getSecuredRoutes());
-                config.router.apiBuilder(SecurityRoutes.getSecurityRoutes());
-                config.router.apiBuilder(routes.getRoutes());
-            });
-
-            Master.Init(jav);
+            Javalin jav = PokemonRoutes.setup();
             jav.start(8080);
 
-            //System.setOut(stdout);
-            //System.setErr(stderr);
+            System.setOut(stdout);
+            System.setErr(stderr);
+
+            System.out.println("listening..." + System.lineSeparator());
+
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest req = HttpRequest.newBuilder()
+                .uri(URI.create("https://pokeapi.co/api/v2/pokemon/ditto"))
+                .build();
+            HttpResponse<String> res = client.send(req, BodyHandlers.ofString());
+
+            String res_str = res.body();
+            //System.out.println(res_str);
+
+            PokemonDTO pokDTO = jsonMapper.readValue(res_str, PokemonDTO.class);
+
+            System.out.println(pokDTO.toString());
+            System.out.println(jsonMapper.writeValueAsString(pokDTO));
 
             /* TEST */
 

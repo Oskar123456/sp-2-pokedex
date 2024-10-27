@@ -23,7 +23,7 @@
         <javalin.version>6.3.0</javalin.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <token.security.version>1.0.1</token.security.version>
-        <cucumber.version>2.3.1</cucumber.version>
+        <cucumber.version>7.20.1</cucumber.version>
     </properties>
     
     <repositories>

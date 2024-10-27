@@ -1,7 +1,5 @@
 package dk.obhnothing.security.exceptions;
 
-import dat.utils.Utils;
-
 /**
  * Purpose: To handle exceptions in the API
  * Author: Thomas Hartmann

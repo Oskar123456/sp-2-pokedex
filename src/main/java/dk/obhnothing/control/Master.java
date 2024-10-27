@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 import com.sun.net.httpserver.HttpServer;
 
-import dk.obhnothing.handling.Fileserver;
 import dk.obhnothing.utilities.PrettyPrinter;
 import dk.obhnothing.utilities.PrettyPrinter.ANSIColorCode;
 import io.javalin.Javalin;
@@ -35,11 +34,6 @@ public class Master
 
     static Logger logger = LoggerFactory.getLogger(Master.class);
     static String resourceFolder = System.getenv("PWD") + "/src/main/resources";
-
-    public static void Init(HttpServer server)
-    {
-        server.createContext("/", new Fileserver());
-    }
 
     public static void Init(Javalin j)
     {
