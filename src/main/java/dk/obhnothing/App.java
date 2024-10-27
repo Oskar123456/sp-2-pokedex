@@ -40,10 +40,10 @@ public class App
     {
         /* INIT */
         jsonMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        PrintStream stdout = System.out;
-        PrintStream stderr = System.err;
-        System.setOut(new PrintStream(PrintStream.nullOutputStream()));
-        System.setErr(new PrintStream(PrintStream.nullOutputStream()));
+        //PrintStream stdout = System.out;
+        //PrintStream stderr = System.err;
+        //System.setOut(new PrintStream(PrintStream.nullOutputStream()));
+        //System.setErr(new PrintStream(PrintStream.nullOutputStream()));
 
         HibernateConfig.Init(HibernateConfig.Mode.DEV);
         EMF = HibernateConfig.getEntityManagerFactory();
@@ -55,10 +55,10 @@ public class App
         {
 
             Javalin jav = PokemonRoutes.setup();
-            jav.start(8080);
+            jav.start(9999);
 
-            System.setOut(stdout);
-            System.setErr(stderr);
+            //System.setOut(stdout);
+            //System.setErr(stderr);
 
             System.out.println("listening..." + System.lineSeparator());
 

@@ -18,6 +18,7 @@ import dk.obhnothing.persistence.ent.Pokemon;
 import dk.obhnothing.persistence.service.Mapper;
 import dk.obhnothing.security.controllers.AccessController;
 import dk.obhnothing.security.controllers.SecurityController;
+import dk.obhnothing.security.enums.Role;
 import dk.obhnothing.security.exceptions.ApiException;
 import dk.obhnothing.security.routes.SecurityRoutes;
 import dk.obhnothing.utilities.Utils;
@@ -50,9 +51,9 @@ public class PokemonRoutes {
 
         jav.get("pokemon/all", PokemonRoutes::pokedexLookUp_All);
         jav.get("pokemon", PokemonRoutes::pokedexLookUp_Id);
-        jav.put("pokemon", PokemonRoutes::pokedex_Add);
-        jav.post("pokemon", PokemonRoutes::pokedex_Add);
-        jav.delete("pokemon", PokemonRoutes::pokedex_Delete);
+        jav.put("pokemon", PokemonRoutes::pokedex_Add, Role.ADMIN);
+        jav.post("pokemon", PokemonRoutes::pokedex_Add, Role.ADMIN);
+        jav.delete("pokemon", PokemonRoutes::pokedex_Delete, Role.ADMIN);
 
         return jav;
     }
