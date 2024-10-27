@@ -7,6 +7,12 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import dk.obhnothing.persistence.ent.Ability;
+import dk.obhnothing.persistence.ent.Form;
+import dk.obhnothing.persistence.ent.Move;
+import dk.obhnothing.persistence.ent.Pokemon;
+import dk.obhnothing.persistence.ent.Sprite;
+import dk.obhnothing.persistence.ent.Type;
 import dk.obhnothing.security.entities.Role;
 import dk.obhnothing.security.entities.User;
 import jakarta.persistence.EntityManagerFactory;
@@ -22,6 +28,12 @@ public class HibernateConfig {
     private static void getAnnotationConfiguration(Configuration configuration) {
         configuration.addAnnotatedClass(User.class);
         configuration.addAnnotatedClass(Role.class);
+        configuration.addAnnotatedClass(Pokemon.class);
+        configuration.addAnnotatedClass(Ability.class);
+        configuration.addAnnotatedClass(Move.class);
+        configuration.addAnnotatedClass(Sprite.class);
+        configuration.addAnnotatedClass(Form.class);
+        configuration.addAnnotatedClass(Type.class);
     }
 
     public static void Init(Mode mode) {

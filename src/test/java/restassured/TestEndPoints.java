@@ -18,7 +18,7 @@ import dk.obhnothing.persistence.dao.hoteldao;
 import dk.obhnothing.persistence.dao.roomdao;
 import dk.obhnothing.persistence.dto.hoteldto;
 import dk.obhnothing.persistence.entities.hotel;
-import dk.obhnothing.persistence.service.Mapping;
+import dk.obhnothing.persistence.service.Mapper;
 import dk.obhnothing.utilities.PrettyPrinter;
 import dk.obhnothing.App;
 import dk.obhnothing.control.Master;
@@ -115,7 +115,7 @@ public class TestEndPoints
         """;
 
         hoteldto DTOFromJson = om.readValue(json, hoteldto.class);
-        hotel EntFromJson = Mapping.Hotel_ToEnt(DTOFromJson);
+        hotel EntFromJson = Mapper.Hotel_ToEnt(DTOFromJson);
         hoteldto[] hotels = RestAssured.get("api/hotel").then().extract().body().jsonPath().getObject("", hoteldto[].class);
 
         assertThat(hotels.length, equalTo(0));

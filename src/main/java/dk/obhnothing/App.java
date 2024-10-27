@@ -1,12 +1,9 @@
 package dk.obhnothing;
 
 import java.io.PrintStream;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,16 +11,13 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import dk.obhnothing.control.Master;
 import dk.obhnothing.persistence.HibernateConfig;
-import dk.obhnothing.persistence.dto.PokemonDTO;
+import dk.obhnothing.persistence.dao.PokeDAO;
+import dk.obhnothing.persistence.ent.Pokemon;
+import dk.obhnothing.persistence.service.Fetch;
 import dk.obhnothing.routes.PokemonRoutes;
-import dk.obhnothing.security.controllers.AccessController;
-import dk.obhnothing.security.controllers.SecurityController;
-import dk.obhnothing.security.routes.SecurityRoutes;
 import dk.obhnothing.utilities.Utils;
 import io.javalin.Javalin;
-import io.javalin.http.staticfiles.Location;
 import jakarta.persistence.EntityManagerFactory;
 
 /*
@@ -38,7 +32,7 @@ import jakarta.persistence.EntityManagerFactory;
 public class App
 {
 
-    private static ObjectMapper jsonMapper = new Utils().getObjectMapper();
+    private static ObjectMapper jsonMapper = Utils.getObjectMapper();
     private static Logger logger = LoggerFactory.getLogger(ApplicationConfig.class);
     private static EntityManagerFactory EMF;
 
@@ -53,6 +47,7 @@ public class App
 
         HibernateConfig.Init(HibernateConfig.Mode.DEV);
         EMF = HibernateConfig.getEntityManagerFactory();
+        PokeDAO.Init(EMF);
         Random rng = new Random();
 
         try
@@ -67,19 +62,12 @@ public class App
 
             System.out.println("listening..." + System.lineSeparator());
 
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest req = HttpRequest.newBuilder()
-                .uri(URI.create("https://pokeapi.co/api/v2/pokemon/ditto"))
-                .build();
-            HttpResponse<String> res = client.send(req, BodyHandlers.ofString());
-
-            String res_str = res.body();
-            //System.out.println(res_str);
-
-            PokemonDTO pokDTO = jsonMapper.readValue(res_str, PokemonDTO.class);
-
-            System.out.println(pokDTO.toString());
-            System.out.println(jsonMapper.writeValueAsString(pokDTO));
+            Pokemon p = Fetch.pokemonById(1);
+            p = Fetch.pokemonById(2);
+            p = Fetch.pokemonById(3);
+            List<Pokemon> p_all = PokeDAO.getAll();
+            System.out.println(p.name);
+            System.out.println(p_all.stream().map(pk -> pk.name).collect(Collectors.joining(", ")));
 
             /* TEST */
 

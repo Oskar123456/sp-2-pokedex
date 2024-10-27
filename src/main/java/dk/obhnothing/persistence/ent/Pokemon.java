@@ -2,16 +2,20 @@ package dk.obhnothing.persistence.ent;
 
 import java.util.Set;
 
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.NaturalId;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
 @Entity
+@NoArgsConstructor
 public class Pokemon
 {
 
@@ -20,7 +24,7 @@ public class Pokemon
     public Integer base_experience;
     public Integer height;
     public Boolean is_default;
-    public Integer order;
+    public Integer order_number;
     public Integer weight;
     public String location_area_encounters;
 
@@ -32,10 +36,10 @@ public class Pokemon
     public String specie_name;
     public String specie_url;
 
-    @ManyToOne public Sprite sprite;
-    @ManyToMany public Set<Type> types;
-    @ManyToMany public Set<Ability> abilities;
-    @ManyToMany public Set<Form> forms;
-    @ManyToMany public Set<Move> moves;
+    @ManyToOne(fetch = FetchType.EAGER) public Sprite sprite;
+    @ManyToMany(fetch = FetchType.EAGER) public Set<Type> types;
+    @ManyToMany(fetch = FetchType.EAGER) public Set<Ability> abilities;
+    @ManyToMany(fetch = FetchType.EAGER) public Set<Form> forms;
+    @ManyToMany(fetch = FetchType.EAGER) public Set<Move> moves;
 
 }
