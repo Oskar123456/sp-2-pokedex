@@ -13,55 +13,56 @@ In this exercise we will train our data collecting skills using JPA, DTOs, Java 
 pokemon.json:
 ```
 {
-  "id": 33,
-  "name": "nidorino",
-  "base_experience": 128,
-  "height": 9,
-  "is_default": true,
-  "order_number": 61,
-  "weight": 195,
-  "location_area_encounters": "https://pokeapi.co/api/v2/pokemon/33/encounters",
-  "hp": 61,
-  "attack": 72,
-  "defense": 57,
-  "speed": 65,
-  "specie_name": "nidorino",
-  "specie_url": "https://pokeapi.co/api/v2/pokemon-species/33/",
-  "sprite": {
-    "id": 381,
-    "back_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/33.png",
-    "back_female": null,
-    "back_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/33.png",
-    "back_shiny_female": null,
-    "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/33.png",
-    "front_female": null,
-    "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/33.png",
-    "front_shiny_female": null
+  id: Number
+  name: String,
+  base_experience: Number,
+  height: Number,
+  is_default: Boolean,
+  order_number: Number
+  weight: Number,
+  location_area_encounters: String,
+  hp: Number
+  attack: Number
+  defense: Number
+  speed: Number
+  specie_name: String,
+  specie_url: String,
+  sprite: {
+    id: Number,
+    back_default: String,
+    back_female: String,
+    back_shiny: String,
+    back_shiny_female: String,
+    front_default: String,
+    front_female: String,
+    front_shiny: String,
+    front_shiny_female: String
   },
-  "types": [
+  types: [
     {
-      "name": "poison",
-      "url": "https://pokeapi.co/api/v2/type/4/"
+      name: String,
+      url: String
     }
   ],
-  "abilities": [
+  abilities: [
     {
-      "name": "hustle",
-      "url": "https://pokeapi.co/api/v2/ability/55/"
+      name: String,
+      url: String
     },
   ],
-  "forms": [
+  forms: [
     {
-      "name": "nidorino",
-      "url": "https://pokeapi.co/api/v2/pokemon-form/33/"
+      name: String,
+      url: String
     }
   ],
-  "moves": [
+  moves: [
     {
-      "name": "amnesia",
-      "url": "https://pokeapi.co/api/v2/move/133/"
+      name: String,
+      url: String
     },
     ]
+}
 ```
 
 #### Entities
