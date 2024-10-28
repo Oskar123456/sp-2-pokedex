@@ -1,0 +1,50 @@
+@startuml
+
+entity pokemon {
+    * id: int
+        --
+      name: varchar
+      hp: int
+      attack: int
+      defense: int
+      speed: int
+      ...
+}
+
+entity sprite {
+    * name: varchar
+        --
+      url: varchar
+}
+
+entity type {
+    * name: varchar
+        --
+      url: varchar
+}
+
+entity ability {
+    * name: varchar
+        --
+      url: varchar
+}
+
+entity form {
+    * name: varchar
+        --
+      url: varchar
+}
+
+entity move {
+    * name: varchar
+        --
+      url: varchar
+}
+
+pokemon ||..|| sprite
+pokemon }..{ type
+pokemon }..{ ability
+pokemon }..{ form
+pokemon }..{ move
+
+@enduml

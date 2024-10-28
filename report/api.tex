@@ -1,12 +1,21 @@
 \documentclass[leqno,12pt]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \usepackage{floatrow}
 \usepackage{minted}    
 \floatsetup[listing]{style=Plaintop}    
 \usepackage[most]{tcolorbox}
 \usepackage{float}
 \restylefloat{table}
+
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
 
 \newcommand{\Term}{Efterår 2024}
 \newcommand{\Course}{Datamatiker}
@@ -59,11 +68,11 @@ Oskar Bahner Hansen (\texttt{cph-oh82@cphbusiness.dk})
 
 \textbf{Copenhagen Business School \Term} \\
 \textbf{\Course} 3. semester \\
-\textbf{\Assignment} tirsdag d. 22 oktober
+\textbf{\Assignment} søndag d. 27. oktober
 \end{center}
 
 \subsection*{\underline{Beskrivelse}}
-\textbf{Titel}: \normalsize \textbf{pokedex}. \textbf{url}: \texttt{pokedex.obhnothing.dk} \\ \textbf{Github}: \normalsize \texttt{https://github.com/Oskar123456/sp-2-pokedex} \newline \newline
+\textbf{Titel}: \normalsize \texttt{pokedex}. \textbf{url}: \texttt{\href{http://pokedex.obhnothing.dk}{pokedex.obhnothing.dk}}. \\ \textbf{Github}: \normalsize \texttt{https://github.com/Oskar123456/sp-2-pokedex} \newline \newline
     \textit{En API til at hente information om pokemons, som f.eks. kunne bruges til et spil. Med en backend der henter disse informationer fra}
     \texttt{https://pokeapi.co}.
 \subsection*{\underline{API}}

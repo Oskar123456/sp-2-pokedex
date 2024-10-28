@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import dk.obhnothing.security.entities.Role;
+import dk.obhnothing.security.entities.User;
+import jakarta.persistence.EntityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,6 +62,27 @@ public class App
 
             //System.setOut(stdout);
             //System.setErr(stderr);
+
+            try (EntityManager em = EMF.createEntityManager()) {
+                em.getTransaction().begin();
+                em.createQuery("DELETE FROM User u").executeUpdate();
+                em.createQuery("DELETE FROM Role r").executeUpdate();
+                User user = new User("user", "user123");
+                User admin = new User("admin", "admin123");
+                User superUser = new User("super", "super123");
+                Role userRole = new Role("user");
+                Role adminRole = new Role("admin");
+                user.addRole(userRole);
+                admin.addRole(adminRole);
+                superUser.addRole(userRole);
+                superUser.addRole(adminRole);
+                em.persist(user);
+                em.persist(admin);
+                em.persist(superUser);
+                em.persist(userRole);
+                em.persist(adminRole);
+                em.getTransaction().commit();
+            }
 
             System.out.println("listening..." + System.lineSeparator());
 
