@@ -4,7 +4,7 @@
 
 Titel: pokedex
 
-url: pokedex.obhnothing.dk
+url: http://pokedex.obhnothing.dk
 
 En API til at hente information om pokemons, som f.eks. kunne bruges til et spil.
 Med en backend der henter disse informationer fra https://pokeapi.co.
