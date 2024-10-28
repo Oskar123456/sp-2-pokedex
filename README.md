@@ -13,13 +13,13 @@ Med en backend der henter disse informationer fra https://pokeapi.co.
 
 #### API
 
-| \multicolumn{1}{c}{	exttt{method}} | \multicolumn{1}{c}{url}   | \multicolumn{1}{c}{params} | \multicolumn{1}{c}{request body} | \multicolumn{1}{c}{response} | \multicolumn{1}{c}{error} |
+| method | url   | params | request body | response | error |
 |------------------------------------|---------------------------|----------------------------|----------------------------------|------------------------------|---------------------------|
-| \texttt{GET}                       | \texttt{/api/pokemon}     | \texttt{id}                |                                  | \texttt{pokejson}            | \texttt{errorjson}        |
-| \texttt{GET}                       | \texttt{/api/pokemon/all} |                            |                                  | \texttt{pokejson[]}          | \texttt{errorjson}        |
-| \texttt{POST}                      | \texttt{/api/pokemon}     |                            | \texttt{pokejson}~(-- id)        | \texttt{pokejson}            | \texttt{errorjson}        |
-| \texttt{PUT}                       | \texttt{/api/pokemon}     |                            | \texttt{pokejson}                | \texttt{pokejson}            | \texttt{errorjson}        |
-| \texttt{DELETE}                    | \texttt{/api/pokemon}     | \texttt{id}                |                                  | \texttt{pokejson}            | \texttt{errorjson}        |
+| GET                       | /api/pokemon     | id                |                                  | pokejson            | errorjson        |
+| GET                       | /api/pokemon/all |                            |                                  | pokejson[]          | errorjson        |
+| POST                      | /api/pokemon     |                            | pokejson~(-- id)        | pokejson            | errorjson        |
+| PUT                       | /api/pokemon     |                            | pokejson                | pokejson            | errorjson        |
+| DELETE                    | /api/pokemon     | id                |                                  | pokejson            | errorjson        |
 
 ```GET pokedex.obhnothing.dk/api/pokemon?id=xxx:```
 
@@ -49,24 +49,24 @@ Med en backend der henter disse informationer fra https://pokeapi.co.
     front_female: String,
     front_shiny: String,
     front_shiny_female: String
-  },
+  ,
   types[]: {
       name: String,
       url: String
-    }
+    
   abilities[]: {
       name: String,
       url: String
-    },
+    ,
   forms[]: {
       name: String,
       url: String
-    },
+    ,
   moves[]: {
       name: String,
       url: String
-    }
-}
+    
+
 ```
 
 #### Entities
