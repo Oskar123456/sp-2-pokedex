@@ -10,7 +10,8 @@ In this exercise we will train our data collecting skills using JPA, DTOs, Java 
 
 #### API
 
-pokemon.json:
+```GET pokedex.obhnothing.dk/api/pokemon?id=xxx:```
+
 ```
 {
   id: Number
