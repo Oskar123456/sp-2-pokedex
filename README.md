@@ -2,13 +2,24 @@
 
 ### Description
 
-Data can potentially be worth a lot of money. A common use case is to collect, store, and enrich related data from various sources (API’s, webpages etc) - and then expose the data in useful places. Sometimes new and interesting products can emerge from this.
+Titel: pokedex
 
-In this exercise we will train our data collecting skills using JPA, DTOs, Java streams, and fetching data from REST API’s.
+url: pokedex.obhnothing.dk
+
+En API til at hente information om pokemons, som f.eks. kunne bruges til et spil.
+Med en backend der henter disse informationer fra https://pokeapi.co.
 
 ### Overview
 
 #### API
+
+| \multicolumn{1}{c}{	exttt{method}} | \multicolumn{1}{c}{url}   | \multicolumn{1}{c}{params} | \multicolumn{1}{c}{request body} | \multicolumn{1}{c}{response} | \multicolumn{1}{c}{error} |
+|------------------------------------|---------------------------|----------------------------|----------------------------------|------------------------------|---------------------------|
+| \texttt{GET}                       | \texttt{/api/pokemon}     | \texttt{id}                |                                  | \texttt{pokejson}            | \texttt{errorjson}        |
+| \texttt{GET}                       | \texttt{/api/pokemon/all} |                            |                                  | \texttt{pokejson[]}          | \texttt{errorjson}        |
+| \texttt{POST}                      | \texttt{/api/pokemon}     |                            | \texttt{pokejson}~(-- id)        | \texttt{pokejson}            | \texttt{errorjson}        |
+| \texttt{PUT}                       | \texttt{/api/pokemon}     |                            | \texttt{pokejson}                | \texttt{pokejson}            | \texttt{errorjson}        |
+| \texttt{DELETE}                    | \texttt{/api/pokemon}     | \texttt{id}                |                                  | \texttt{pokejson}            | \texttt{errorjson}        |
 
 ```GET pokedex.obhnothing.dk/api/pokemon?id=xxx:```
 
