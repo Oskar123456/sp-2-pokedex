@@ -39,30 +39,22 @@ In this exercise we will train our data collecting skills using JPA, DTOs, Java 
     front_shiny: String,
     front_shiny_female: String
   },
-  types: [
-    {
+  types[]: {
       name: String,
       url: String
     }
-  ],
-  abilities: [
-    {
+  abilities[]: {
       name: String,
       url: String
     },
-  ],
-  forms: [
-    {
+  forms[]: {
+      name: String,
+      url: String
+    },
+  moves[]: {
       name: String,
       url: String
     }
-  ],
-  moves: [
-    {
-      name: String,
-      url: String
-    },
-    ]
 }
 ```
 
